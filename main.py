@@ -4,7 +4,7 @@ from pytube import YouTube
 def startDownload():
     try:
         ytLink = link.get()
-        
+        ytObject = YouTube(ytLink)
     except:
         pass
 # Sytem Settings

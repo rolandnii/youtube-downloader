@@ -4,9 +4,16 @@ from pytube import YouTube
 def startDownload():
     try:
         ytLink = link.get()
-        ytObject = "forgive mme , this is jsut a test i am doing on this pc"
+        ytObject = YouTube(ytLink,on_progress_callback=on_progress)
+        title.configure(text=ytObject.title,text_color='white')
+        # video.download()
+        finishLabel.configure(text="Downloaded")
+        
     except:
-        pass
+        finishLabel.configure(text="Ops!, An internal error occured",text_color="red")
+    
+def on_progress():
+    pass
 # Sytem Settings
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
@@ -25,11 +32,21 @@ url = tkinter.StringVar()
 link = customtkinter.CTkEntry(app,width=300,height=35, textvariable=url)
 link.pack()
 
+#add text
+finishLabel = customtkinter.CTkLabel(app,text="")
+finishLabel.pack()
+
 # download button
 download = customtkinter.CTkButton(app,text="Download",command=startDownload)
 download.pack(pady=10)
 
+#progress
+pPercentage = customtkinter.CTkLabel(app, text="0%")
+pPercentage.pack()
 
+progressBar = customtkinter.CTkProgressBar(app, width=300)
+progressBar.set(0.5)
+progressBar.pack()
 
 
 # Run app
